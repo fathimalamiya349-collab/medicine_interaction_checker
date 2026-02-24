@@ -12,7 +12,7 @@
     </header>
     <main>
         <section>
-            <label for="medicine1">Enter Medicines (separate by comma):</label>
+            <label for="medicines">Enter Medicines (separate by commas):</label>
             <input type="text" id="medicines" placeholder="e.g., Aspirin, Ibuprofen, Paracetamol">
             
             <button id="checkBtn">Check Interaction</button>
@@ -33,25 +33,31 @@
 
             if (medicines) {
                 const medicineArray = medicines.split(',').map(med => med.trim());
+                if (medicineArray.length < 3) {
+                    resultBox.innerHTML = "Please enter at least 3 medicines.";
+                    return;
+                }
                 const results = await fetchInteraction(medicineArray);
                 resultBox.innerHTML = results.join('<br>');
             } else {
-                resultBox.innerHTML = "Please enter at least one medicine.";
+                resultBox.innerHTML = "Please enter medicines.";
             }
         });
 
         async function fetchInteraction(meds) {
             let interactions = [];
 
-            // Simulate interaction checking for every pair
+            // Simulate interaction checking for every combination
             for (let i = 0; i < meds.length; i++) {
                 for (let j = i + 1; j < meds.length; j++) {
-                    interactions.push(`No known harmful interactions between ${meds[i]} and ${meds[j]}.`);
+                    for (let k = j + 1; k < meds.length; k++) {
+                        interactions.push(`No known harmful interactions between ${meds[i]}, ${meds[j]}, and ${meds[k]}.`);
+                    }
                 }
             }
 
             if (interactions.length === 0) {
-                interactions.push("Please enter at least two medicines to check.");
+                interactions.push("Please enter at least three medicines to check.");
             }
             return interactions;
         }
