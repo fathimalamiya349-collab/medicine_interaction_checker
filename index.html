@@ -2,50 +2,163 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>AI Medicine Interaction Checker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicine Interaction Checker</title>
-    <link rel="stylesheet"
-    href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>AI-powered Medicine Interaction Checker</h1>
-    </header>
-    <main>
-        <section>
-            <label for="medicine1">Enter First Medicine:</label>
-            <input type="text" id="medicine1" placeholder="e.g., Aspirin">
 
-            <label for="medicine2">Enter Second Medicine:</label>
-            <input type="text" id="medicine2" placeholder="e.g., Ibuprofen">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-            <button id="checkBtn">Check Interaction</button>
-        </section>
-
-        <section id="result">
-            <h2>Interaction Results</h2>
-            <p id="interactionInfo">No interaction data available yet.</p>
-        </section>
-    </main>
-    <footer>
-        <p>Powered by AI and Kaggle Datasets</p>
-    </footer>
-    <script>
-        document.getElementById('checkBtn').addEventListener('click', async () => {
-            const medicine1 = document.getElementById('medicine1').value;
-            const medicine2 = document.getElementById('medicine2').value;
-            if (medicine1 && medicine2) {
-                const result = await fetchInteraction(medicine1, medicine2);
-                document.getElementById('interactionInfo').textContent = result;
-            } else {
-                alert('Please enter both medicines.');
-            }
-        });
-
-        async function fetchInteraction(med1, med2) {
-            // For now, simulate a response
-            return No known harmful interactions between ${med1} and ${med2}.;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-    </script>
+
+        body {
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #1565c0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #1565c0;
+            box-shadow: 0 0 5px rgba(21, 101, 192, 0.3);
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1565c0;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0d47a1;
+        }
+
+        #resultBox {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        @media(max-width: 600px){
+            .card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    AI-Powered Medicine Interaction Checker 💊
+</header>
+
+<main>
+    <div class="card">
+        <label for="medicine1">Enter First Medicine</label>
+        <input type="text" id="medicine1" placeholder="e.g., Aspirin">
+
+        <label for="medicine2">Enter Second Medicine</label>
+        <input type="text" id="medicine2" placeholder="e.g., Ibuprofen">
+
+        <button id="checkBtn">Check Interaction</button>
+
+        <div id="resultBox">
+            No interaction checked yet.
+        </div>
+    </div>
+</main>
+
+<footer>
+    Powered by AI & Kaggle Dataset | Mini Project 2026
+</footer>
+
+<script>
+    document.getElementById('checkBtn').addEventListener('click', async () => {
+        const medicine1 = document.getElementById('medicine1').value.trim();
+        const medicine2 = document.getElementById('medicine2').value.trim();
+        const resultBox = document.getElementById('resultBox');
+
+        if (medicine1 && medicine2) {
+            const result = await fetchInteraction(medicine1, medicine2);
+            resultBox.textContent = result;
+        } else {
+            resultBox.textContent = "Please enter both medicines.";
+        }
+    });
+
+    async function fetchInteraction(med1, med2) {
+        // Simulated AI response
+        return `No known harmful interactions between ${med1} and ${med2}.`;
+    }
+</script>
+
 </body>
 </html>
